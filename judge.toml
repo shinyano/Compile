@@ -1,5 +1,5 @@
 [jobs.c0]
 image = {source = "dockerfile", path = ".", tag = "pascal-lex-example"}
 run = [
-  "java App l $input $output",
+  "java App l $input $asm",
 ]

@@ -18,7 +18,7 @@ public class App {
             } catch (FileNotFoundException e) {
                 System.err.println("Cannot find input file.");
                 e.printStackTrace();
-                System.exit(2);
+                System.exit(0);
                 return;
             }
         }
@@ -34,7 +34,7 @@ public class App {
             } catch (FileNotFoundException e) {
                 System.err.println("Cannot open output file.");
                 e.printStackTrace();
-                System.exit(2);
+                System.exit(0);
                 return;
             }
         }

@@ -1,5 +1,5 @@
 FROM java:8
 WORKDIR /app/
 COPY ./* ./
-RUN javac -encoding utf-8 App.java
+RUN javac App.java -encoding utf-8
 RUN chmod +x App

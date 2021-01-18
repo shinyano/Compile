@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws CompileError {
+    public static void main(String[] args) throws Exception {
+
+        if(args.length<3)
+        throw new Exception("Commend Error");
 
         String inputFileName = args[1];
         String outputFileName = args[2];

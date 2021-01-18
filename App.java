@@ -7,7 +7,8 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         if(args.length<3){
-            System.out.println(args);
+            for(String str : args)
+                System.out.println(args);
             throw new Exception("Commend Error");
         }
 

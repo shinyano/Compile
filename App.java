@@ -14,7 +14,7 @@ public class App {
             input = System.in;
         } else {
             try {
-                input = new FileInputStream(inputFileName);
+                input = new FileInputStream(new File(inputFileName));
             } catch (FileNotFoundException e) {
                 System.err.println("Cannot find input file.");
                 e.printStackTrace();
@@ -73,15 +73,16 @@ public class App {
             List<FunctionTable> functionTables;
             List<Token> global;
             table = analyzer.analyse();
+            table.generate();
             global=table.getGlobal();
             functionTables=table.getFunctionTables();
-            // for(Token token:global){
-            //     output.println(token);
-            // }
-            // for (FunctionTable function:functionTables){
-            //     output.println(function.getName()+" pos:"+function.getPos()+"params:"+function.getParamSoltNum()+" var:"+function.getVarSoltNum()+" ->"+function.getReturnSoltNum());
-            //     output.println(function.getInstructions());
-            // }
+            for(Token token:global){
+                output.println(token);
+            }
+            for (FunctionTable function:functionTables){
+                output.println(function.getName()+" pos:"+function.getPos()+"params:"+function.getParamSoltNum()+" var:"+function.getVarSoltNum()+" ->"+function.getReturnSoltNum());
+                output.println(function.getInstructions());
+            }
 
             OutPutBinary outPutBinary = new OutPutBinary(table);
             List<Byte> bs = outPutBinary.generate();
@@ -94,11 +95,8 @@ public class App {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-
         } else {
-            System.err.println("Please specify either '--analyse' or '--tokenize'.");
-            System.exit(3);
+            System.exit(0);
         }
     }
 

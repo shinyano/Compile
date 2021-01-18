@@ -197,15 +197,10 @@ public class Table {
         long id=getGlobalId(new Token(TokenType.IDENT,"main",new Pos(-1,-1),new Pos(-1,-1)));
         addGlobal(new Token(TokenType.IDENT,"_start",new Pos(-1,-1),new Pos(-1,-1)));
         FunctionTable functionTable=new FunctionTable("_start",this.global.size()-1,TokenType.VOID_KW);
-
         List<Instruction> instructions=functionTable.getInstructions();
-
         instructions.addAll(this.instructions);
-
         instructions.addAll(addstackllocInstruction("main"));
-
         instructions.add(new Instruction(Operation.call,getFunclId(new Token(TokenType.IDENT,"main",new Pos(-1,-1),new Pos(-1,-1)))));
-
         this.functionTables.add(0,functionTable);
     }
 

@@ -581,7 +581,11 @@ public final class Analyser {
         }
         expect(TokenType.R_PAREN);
         if(this.table.checkOutFunc(token.getValueString())){
-            instructions.add(new Instruction(Operation.callname,(long)this.table.getGlobalId(token)));
+            Instruction ins = new Instruction(Operation.callname,(long)this.table.getGlobalId(token));
+            // System.out.println(ins);
+            instructions.add(ins);
+            // System.out.println(token);
+            // System.out.println(this.table.getGlobalId(token));
         }else{
             instructions.add(new Instruction(Operation.call,this.table.getFunclId(token)));
         }

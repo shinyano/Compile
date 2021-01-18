@@ -50,7 +50,7 @@ public final class Analyser {
      */
     private Token next() throws TokenizeError {
         if (peekedToken != null) {
-            var token = peekedToken;
+            Token token = peekedToken;
             peekedToken = null;
             return token;
         } else {
@@ -66,7 +66,7 @@ public final class Analyser {
      * @throws TokenizeError
      */
     private boolean check(TokenType tt) throws TokenizeError {
-        var token = peek();
+        Token token = peek();
         return token.getTokenType() == tt;
     }
 
@@ -78,7 +78,7 @@ public final class Analyser {
      * @throws TokenizeError
      */
     private Token nextIf(TokenType tt) throws TokenizeError {
-        var token = peek();
+        Token token = peek();
         if (token.getTokenType() == tt) {
             return next();
         } else {
@@ -101,7 +101,7 @@ public final class Analyser {
      * @throws CompileError 如果类型不匹配
      */
     private Token expect(TokenType tt) throws CompileError {
-        var token = peek();
+        Token token = peek();
         if (token.getTokenType() == tt) {
             return next();
         } else {
@@ -141,7 +141,7 @@ public final class Analyser {
     private void expectNotConstant(Token token) throws AnalyzeError {
         String name=token.getValueString();
         Pos curPos=token.getStartPos();
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if (entry == null) {
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         } else if(entry.isConstant()) {
@@ -208,7 +208,7 @@ public final class Analyser {
      * @throws AnalyzeError 如果未定义则抛异常
      */
     private void initializeSymbol(String name, Pos curPos) throws AnalyzeError {
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if (entry == null) {
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         } else {
@@ -217,7 +217,7 @@ public final class Analyser {
     }
 
     private void declareSymbol(String name, Pos curPos) throws AnalyzeError {
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if (entry == null) {
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         }else if(entry.getNameType()==NameType.Proc){
@@ -239,7 +239,7 @@ public final class Analyser {
      * @throws AnalyzeError
      */
     private int getOffset(String name, Pos curPos) throws AnalyzeError {
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if (entry == null) {
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         } else {
@@ -256,7 +256,7 @@ public final class Analyser {
      * @throws AnalyzeError
      */
     private boolean isConstant(String name, Pos curPos) throws AnalyzeError {
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if (entry == null) {
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         } else {
@@ -269,7 +269,7 @@ public final class Analyser {
         if(entry==null){
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         }
-        else if (entry.isInitialized) {
+        else if (entry.isInitialized()) {
             return true;
         }else {
             throw new AnalyzeError(ErrorCode.NotInitialized, curPos);
@@ -475,9 +475,9 @@ public final class Analyser {
     private List<Instruction> analyseLet() throws CompileError {
         List<Instruction> instructions=new ArrayList<>();
         expect(TokenType.LET_KW);
-        var nameToken = expect(TokenType.IDENT);
+        Token nameToken = expect(TokenType.IDENT);
         expect(TokenType.COLON);
-        var ty=expectTy();
+        Token ty=expectTy();
         if(nextIf(TokenType.ASSIGN)!=null){
             addSymbol(nameToken,NameType.Var,ty.getTokenType(),this.deep,true,false,nameToken.getStartPos());
             //获得变量地址
@@ -494,9 +494,9 @@ public final class Analyser {
     private List<Instruction> analyseConst() throws CompileError {
         List<Instruction> instructions=new ArrayList<>();
         expect(TokenType.LET_KW);
-        var nameToken = expect(TokenType.IDENT);
+        Token nameToken = expect(TokenType.IDENT);
         expect(TokenType.COLON);
-        var ty=expectTy();
+        Token ty=expectTy();
         expect(TokenType.ASSIGN);
         addSymbol(nameToken,NameType.Var,ty.getTokenType(),this.deep,true,false,nameToken.getStartPos());
         //获得变量地址

@@ -166,7 +166,7 @@ public class Tokenizer {
                     it.nextChar();
                     return new Token(TokenType.EQ, "==", startPos, it.currentPos());
                 } else {
-                    return new Token(TokenType.EQ, '=', startPos, it.currentPos());
+                    return new Token(TokenType.ASSIGN, '=', startPos, it.currentPos());
                 }
             case '!':
                 if(it.peekChar() != '='){

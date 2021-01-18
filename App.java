@@ -76,13 +76,13 @@ public class App {
             table.generate();
             global=table.getGlobal();
             functionTables=table.getFunctionTables();
-            for(Token token:global){
-                output.println(token);
-            }
-            for (FunctionTable function:functionTables){
-                output.println(function.getName()+" pos:"+function.getPos()+"params:"+function.getParamSoltNum()+" var:"+function.getVarSoltNum()+" ->"+function.getReturnSoltNum());
-                output.println(function.getInstructions());
-            }
+            // for(Token token:global){
+            //     output.println(token);
+            // }
+            // for (FunctionTable function:functionTables){
+            //     output.println(function.getName()+" pos:"+function.getPos()+"params:"+function.getParamSoltNum()+" var:"+function.getVarSoltNum()+" ->"+function.getReturnSoltNum());
+            //     output.println(function.getInstructions());
+            // }
 
             OutPutBinary outPutBinary = new OutPutBinary(table);
             List<Byte> bs = outPutBinary.generate();

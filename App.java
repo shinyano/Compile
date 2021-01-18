@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws CompileError {
 
-        var inputFileName = args[1];
-        var outputFileName = args[2];
+        String inputFileName = args[1];
+        String outputFileName = args[2];
 
         InputStream input;
         if (inputFileName.equals("-")) {
@@ -41,15 +41,15 @@ public class App {
 
         Scanner scanner;
         scanner = new Scanner(input);
-        var iter = new StringIter(scanner);
-        var tokenizer = tokenize(iter);
+        StringIter iter = new StringIter(scanner);
+        Tokenizer tokenizer = tokenize(iter);
 
         if (args[0].equals("t")) {
             // tokenize
-            var tokens = new ArrayList<Token>();
+            List<Token> tokens = new ArrayList<Token>();
             try {
                 while (true) {
-                    var token = tokenizer.nextToken();
+                    Token token = tokenizer.nextToken();
                     if (token.getTokenType().equals(TokenType.EOF)) {
                         break;
                     }
@@ -67,7 +67,7 @@ public class App {
             }
         } else if (args[0].equals("l")) {
             // analyze
-            var analyzer = new Analyser(tokenizer);
+            Analyser analyzer = new Analyser(tokenizer);
             List<Instruction> instructions;
             Table table = new Table();
             List<FunctionTable> functionTables;
@@ -114,7 +114,7 @@ public class App {
     // }
 
     private static Tokenizer tokenize(StringIter iter) {
-        var tokenizer = new Tokenizer(iter);
+        Tokenizer tokenizer = new Tokenizer(iter);
         return tokenizer;
     }
 }

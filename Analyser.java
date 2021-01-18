@@ -263,7 +263,7 @@ public final class Analyser {
     }
 
     private boolean isInitialized(String name, Pos curPos) throws AnalyzeError {
-        var entry = this.table.get(name,this.deep,curPos);
+        SymbolEntry entry = this.table.get(name,this.deep,curPos);
         if(entry==null){
             throw new AnalyzeError(ErrorCode.NotDeclared, curPos);
         }
